@@ -1,50 +1,42 @@
-# Makefile for BSDSF22M050-OS-A02
+# Makefile for all LS versions (v1.0.0 -> v1.5.0)
 
 CC = gcc
+CFLAGS = -Wall -Wextra -std=c99
 SRC_DIR = src
 BIN_DIR = bin
-CFLAGS = -Wall -Wextra -std=c99
 
-# Default target
-all: $(BIN_DIR)/ls-v1.4.0
+V1_0 = $(BIN_DIR)/ls-v1.0.0
+V1_1 = $(BIN_DIR)/ls-v1.1.0
+V1_2 = $(BIN_DIR)/ls-v1.2.0
+V1_3 = $(BIN_DIR)/ls-v1.3.0
+V1_4 = $(BIN_DIR)/ls-v1.4.0
+V1_5 = $(BIN_DIR)/ls-v1.5.0
 
-# Build rules
+all: $(V1_0) $(V1_1) $(V1_2) $(V1_3) $(V1_4) $(V1_5)
+
 $(BIN_DIR)/ls-v1.0.0: $(SRC_DIR)/ls-v1.0.0.c
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/ls-v1.0.0.c -o $(BIN_DIR)/ls-v1.0.0
-	@echo "✅ Build complete: $(BIN_DIR)/ls-v1.0.0"
+	$(CC) $(CFLAGS) $< -o $@
 
 $(BIN_DIR)/ls-v1.1.0: $(SRC_DIR)/ls-v1.1.0.c
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/ls-v1.1.0.c -o $(BIN_DIR)/ls-v1.1.0
-	@echo "✅ Build complete: $(BIN_DIR)/ls-v1.1.0"
+	$(CC) $(CFLAGS) $< -o $@
 
 $(BIN_DIR)/ls-v1.2.0: $(SRC_DIR)/ls-v1.2.0.c
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/ls-v1.2.0.c -o $(BIN_DIR)/ls-v1.2.0
-	@echo "✅ Build complete: $(BIN_DIR)/ls-v1.2.0"
+	$(CC) $(CFLAGS) $< -o $@
 
 $(BIN_DIR)/ls-v1.3.0: $(SRC_DIR)/ls-v1.3.0.c
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/ls-v1.3.0.c -o $(BIN_DIR)/ls-v1.3.0
-	@echo "✅ Build complete: $(BIN_DIR)/ls-v1.3.0"
+	$(CC) $(CFLAGS) $< -o $@
 
 $(BIN_DIR)/ls-v1.4.0: $(SRC_DIR)/ls-v1.4.0.c
 	@mkdir -p $(BIN_DIR)
-	$(CC) $(CFLAGS) $(SRC_DIR)/ls-v1.4.0.c -o $(BIN_DIR)/ls-v1.4.0
-	@echo "✅ Build complete: $(BIN_DIR)/ls-v1.4.0"
+	$(CC) $(CFLAGS) $< -o $@
 
-# Run the latest version by default
-run:
-	./$(BIN_DIR)/ls-v1.4.0
+$(BIN_DIR)/ls-v1.5.0: $(SRC_DIR)/ls-v1.5.0.c
+	@mkdir -p $(BIN_DIR)
+	$(CC) $(CFLAGS) -D_POSIX_C_SOURCE=200809L $< -o $@
 
-# Clean binaries
 clean:
-	rm -f $(BIN_DIR)/*
-
-# Version-specific targets
-v1.0: $(BIN_DIR)/ls-v1.0.0
-v1.1: $(BIN_DIR)/ls-v1.1.0
-v1.2: $(BIN_DIR)/ls-v1.2.0
-v1.3: $(BIN_DIR)/ls-v1.3.0
-v1.4: $(BIN_DIR)/ls-v1.4.0
+	rm -rf $(BIN_DIR)
